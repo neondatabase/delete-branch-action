@@ -1,0 +1,28 @@
+name: Neon Delete Branch
+author: Neon Database
+description: Deletes a new Neon Postgres branch with Id.
+branding:
+  icon: "box"
+  color: "red"
+
+inputs:
+  project_id:
+    required: true
+    type: string
+  branch_id:
+    required: true
+    type: string
+  api_key:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Delete branch
+    shell: bash
+    run: |
+      OUTPUT=`curl -X 'DELETE' \
+        'https://console.neon.tech/api/v2/projects/${{inputs.project_id}}/branches/${{inputs.branch_id}}' \
+        -H 'accept: application/json' \
+        -H 'Authorization: Bearer ${{ inputs.api_key }}'`
+      echo $OUTPUT
