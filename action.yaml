@@ -19,10 +19,10 @@ runs:
   using: "composite"
   steps:
     - name: Delete branch
-    shell: bash
-    run: |
-      OUTPUT=`curl -X 'DELETE' \
-        'https://console.neon.tech/api/v2/projects/${{inputs.project_id}}/branches/${{inputs.branch_id}}' \
-        -H 'accept: application/json' \
-        -H 'Authorization: Bearer ${{ inputs.api_key }}'`
-      echo $OUTPUT
+      shell: bash
+      run: |
+        OUTPUT=`curl -X 'DELETE' \
+          'https://console.neon.tech/api/v2/projects/${{inputs.project_id}}/branches/${{inputs.branch_id}}' \
+          -H 'accept: application/json' \
+          -H 'Authorization: Bearer ${{ inputs.api_key }}'`
+        echo $OUTPUT
