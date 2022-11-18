@@ -4,7 +4,7 @@
 
 
 ## Delete a Neon Branch 🚀
-This gitHub action creates a new Neon branch.
+This gitHub action deletes a new Neon branch.
 
 Here is an example of how to use it:
 
