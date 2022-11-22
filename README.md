@@ -14,7 +14,7 @@ run-name: Delete a Neon Branch 🚀
 on: [push]
 jobs:
   delete-neon-branch:
-    uses: neondatabase/delete-branch-action.yml@main
+    uses: neondatabase/delete-branch-action.yml@beta
     with:
       project_id: rapid-haze-373089
       branch_id: br-long-forest-224191
