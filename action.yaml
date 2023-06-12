@@ -18,6 +18,23 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Check operations status
+      shell: bash
+      run: |
+        while true; do
+          STATUS=$(curl --silent -X 'GET' \
+            'https://console.neon.tech/api/v2/projects/${{inputs.project_id}}/operations' \
+            -H 'Accept: application/json' \
+            -H 'Authorization: Bearer ${{ inputs.api_key }}' | jq -r '.operations[] | select(.branch_id == "${{inputs.branch_id}}" and .status == "running") | .status')
+
+          if [[ "$STATUS" != "running" ]]; then
+            break
+          fi
+
+          echo "Operations are still running. Waiting for 5 seconds before checking again."
+          sleep 5
+        done
+
     - name: Delete branch
       shell: bash
       run: |
