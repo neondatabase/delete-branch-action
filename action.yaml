@@ -19,11 +19,11 @@ runs:
   using: "composite"
   steps:
     - uses: actions/setup-node@v3
-    - run: yarn add global neonctl@v1.13.0
+    - run: yarn add global neonctl@v1.18.0
       shell: bash
     - name: Delete branch
       shell: bash
       env:
         NEON_API_KEY: ${{ inputs.api_key }}
       run: |
-        yarn neonctl branches delete ${{ inputs.branch_id }} --project.id ${{ inputs.project_id }}
+        yarn neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
