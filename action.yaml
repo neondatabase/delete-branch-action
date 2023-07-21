@@ -33,7 +33,7 @@ runs:
         NEON_API_KEY: ${{ inputs.api_key }}
       run: |
         if [ -z "${{ inputs.branch }}" ]; then
-          yarn neonctl -s branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
+          yarn -s run neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
         else
-          yarn neonctl -s branches delete ${{ inputs.branch }} --project-id ${{ inputs.project_id }}
+          yarn -s run neonctl branches delete ${{ inputs.branch }} --project-id ${{ inputs.project_id }}
         fi
