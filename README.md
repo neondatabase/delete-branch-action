@@ -4,7 +4,7 @@
 
 
 ## Delete a Neon Branch 🚀
-This gitHub action deletes a new Neon branch.
+This GitHub action deletes a new Neon branch.
 
 Here is an example of how to use it:
 
@@ -14,7 +14,7 @@ run-name: Delete a Neon Branch 🚀
 on: [push]
 jobs:
   delete-neon-branch:
-    uses: neondatabase/delete-branch-action.yml@beta
+    uses: neondatabase/delete-branch-action@v3
     with:
       project_id: rapid-haze-373089
       branch_id: br-long-forest-224191
@@ -25,5 +25,5 @@ jobs:
 Navigate to you the Account page on your Neon console. In the Developer Settings, Generate a new API key if you don't have one already. 
 It's important not to share the API key or expose it in your actions or code. This is why you need to add the API key to a new GitHub secret.  
 
-In your GitHub repo, go to `Settings` and and locate `Secrets` at the bottom of the left side bar. Click on `Actions` then on the `New repository secret` button to create a new  secret.
+In your GitHub repo, go to `Settings` and locate `Secrets` at the bottom of the left sidebar. Click on `Actions` and then on the `New repository secret` button to create a new secret.
 Name the secret `NEON_API_KEY` and paste the API key generated on the Neon console in the `Secret*` field, then press `Add secret` button.
