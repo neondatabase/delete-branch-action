@@ -8,12 +8,18 @@ branding:
 inputs:
   project_id:
     required: true
+    description: "The Neon project id"
     type: string
   branch_id:
+    type: string
+    deprecationMessage: "The `branch_id` input is deprecated in favor of `branch`"
+  api_key:
+    description: "The Neon API key, read more at https://neon.tech/docs/manage/api-keys"
     required: true
     type: string
-  api_key:
-    required: true
+  branch:
+    description: "The Neon branch name or id"
+    type: string
 
 runs:
   using: "composite"
@@ -26,4 +32,8 @@ runs:
       env:
         NEON_API_KEY: ${{ inputs.api_key }}
       run: |
-        yarn neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
+        if [ -z "${{ inputs.branch }}" ]; then
+          yarn -s run neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
+        else
+          yarn -s run neonctl branches delete ${{ inputs.branch }} --project-id ${{ inputs.project_id }}
+        fi
