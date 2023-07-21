@@ -18,11 +18,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-node@v3
+    - run: yarn add global neonctl@v1.18.0
+      shell: bash
     - name: Delete branch
       shell: bash
+      env:
+        NEON_API_KEY: ${{ inputs.api_key }}
       run: |
-        OUTPUT=`curl -X 'DELETE' \
-          'https://console.neon.tech/api/v2/projects/${{inputs.project_id}}/branches/${{inputs.branch_id}}' \
-          -H 'accept: application/json' \
-          -H 'Authorization: Bearer ${{ inputs.api_key }}'`
-        echo $OUTPUT
+        yarn neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
