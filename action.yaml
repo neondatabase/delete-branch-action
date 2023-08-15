@@ -9,23 +9,20 @@ inputs:
   project_id:
     required: true
     description: "The Neon project id"
-    type: string
   branch_id:
-    type: string
+    description: "The Neon branch id"
     deprecationMessage: "The `branch_id` input is deprecated in favor of `branch`"
   api_key:
     description: "The Neon API key, read more at https://neon.tech/docs/manage/api-keys"
     required: true
-    type: string
   branch:
     description: "The Neon branch name or id"
-    type: string
 
 runs:
   using: "composite"
   steps:
     - uses: actions/setup-node@v3
-    - run: yarn add global neonctl@v1
+    - run: yarn global add neonctl@v1
       shell: bash
     - name: Delete branch
       shell: bash
@@ -33,7 +30,7 @@ runs:
         NEON_API_KEY: ${{ inputs.api_key }}
       run: |
         if [ -z "${{ inputs.branch }}" ]; then
-          yarn -s run neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
+          neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
         else
-          yarn -s run neonctl branches delete ${{ inputs.branch }} --project-id ${{ inputs.project_id }}
+          neonctl branches delete ${{ inputs.branch }} --project-id ${{ inputs.project_id }}
         fi
