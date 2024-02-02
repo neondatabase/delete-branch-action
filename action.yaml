@@ -32,5 +32,5 @@ runs:
         if [ -z "${{ inputs.branch }}" ]; then
           neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
         else
-          neonctl branches delete ${{ inputs.branch }} --project-id ${{ inputs.project_id }}
+          neonctl branches delete "${{ inputs.branch }}" --project-id ${{ inputs.project_id }}
         fi
