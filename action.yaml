@@ -1,6 +1,6 @@
 name: "Neon Database Delete Branch"
 author: "Neon Database"
-description: "Deletes Neon Postgres branch with Id"
+description: "Deletes Neon Postgres branch, designed for after merging PRs"
 branding:
   icon: "box"
   color: "red"
