@@ -1,36 +1,52 @@
 name: "Neon Database Delete Branch"
 author: "Neon Database"
-description: "Deletes Neon Postgres branch with Id"
+description: "Deletes Neon Postgres branch, designed for after merging PRs"
 branding:
   icon: "box"
   color: "red"
 
 inputs:
   project_id:
-    required: true
-    description: "The Neon project id"
+    description: "The Neon project id. Find in URL: https://console.neon.tech/app/projects/$project_id"
   branch_id:
     description: "The Neon branch id"
     deprecationMessage: "The `branch_id` input is deprecated in favor of `branch`"
   api_key:
     description: "The Neon API key, read more at https://neon.tech/docs/manage/api-keys"
-    required: true
   branch:
     description: "The Neon branch name or id"
 
 runs:
   using: "composite"
   steps:
+    - if: ${{ env.NEON_PROJECT_ID == '' }}
+      shell: bash
+      run: |
+        NEON_PROJECT_ID_INPUT=${{ inputs.project_id }}
+        NEON_PROJECT_ID=${NEON_PROJECT_ID:-${NEON_PROJECT_ID_INPUT:-'UNDEFINED'}}
+
+        if [[ "$NEON_PROJECT_ID" == "UNDEFINED" ]]
+          exit 1 # env or input is required
+
+        echo "NEON_PROJECT_ID=$NEON_PROJECT_ID" >> "$GITHUB_ENV"
+    - if: ${{ env.NEON_API_KEY == '' }}
+      shell: bash
+      run: |
+        NEON_API_KEY_INPUT=${{ inputs.api_key }}
+        NEON_API_KEY=${NEON_API_KEY:-${NEON_API_KEY_INPUT:-'UNDEFINED'}}
+
+        if [[ "$NEON_API_KEY" == "UNDEFINED" ]]
+          exit 1 # env or input is required
+
+        echo "NEON_API_KEY=$NEON_API_KEY" >> "$GITHUB_ENV"
     - uses: actions/setup-node@v4
     - run: npm i -g neonctl@v1
       shell: bash
     - name: Delete branch
       shell: bash
-      env:
-        NEON_API_KEY: ${{ inputs.api_key }}
       run: |
         if [ -z "${{ inputs.branch }}" ]; then
-          neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
+          neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ env.project_id }}
         else
-          neonctl branches delete "${{ inputs.branch }}" --project-id ${{ inputs.project_id }}
+          neonctl branches delete "${{ inputs.branch }}" --project-id ${{ env.project_id }}
         fi
