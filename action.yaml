@@ -8,7 +8,7 @@ branding:
 inputs:
   project_id:
     required: true
-    description: "The Neon project id"
+    description: "The Neon project id. Find in URL: https://console.neon.tech/app/projects/$project_id"
   branch_id:
     description: "The Neon branch id"
     deprecationMessage: "The `branch_id` input is deprecated in favor of `branch`"
