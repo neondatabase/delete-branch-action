@@ -1,0 +1,31 @@
+# This workflow creates a random branch within a neon project
+# Then it uses the main repo composite action to delete the branch
+# The test occurs when we check our branch list for the presence of the branch that was expected to be deleted
+
+name: Composite Action CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@v3
+      - run: npm i -g neonctl@v1
+      - run: neonctl branches create -o json >> "$GITHUB_OUTPUT"
+        id: create-branch
+      - run: echo ${{ fromJSON(steps.create-branch.outputs) }}
+      - uses: ./action
+        with:
+          branch: ${{ fromJSON(steps.create-branch.outputs.branch.id) }}
+      - run: neonctl branches list -o json >> "$GITHUB_OUTPUT"
+        id: branch-list
+      - if: contains(steps.branch-list.outputs.*.id, steps.create-branch.outputs.branch.id)
+        run: |
+          echo "::error ::Branch wasn't successfully deleted"
+          exit 1
