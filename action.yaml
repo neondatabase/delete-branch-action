@@ -15,6 +15,9 @@ inputs:
   api_key:
     description: "The Neon API key, read more at https://neon.tech/docs/manage/api-keys"
     required: true
+  api_host:
+    description: "The Neon API host"
+    default: 'https://console.neon.tech/api/v2'
   branch:
     description: "The Neon branch name or id"
 
@@ -28,6 +31,7 @@ runs:
       shell: bash
       env:
         NEON_API_KEY: ${{ inputs.api_key }}
+        NEON_API_HOST: ${{ inputs.api_host }}
       run: |
         if [ -z "${{ inputs.branch }}" ]; then
           neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
