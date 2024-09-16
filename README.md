@@ -19,7 +19,7 @@ jobs:
       with:
         project_id: rapid-haze-373089
         branch: br-long-forest-224191
-        api_key: {{ secrets.NEON_API_KEY }}
+        api_key: ${{ secrets.NEON_API_KEY }}
 ```
 
 ## How to set up the NEON_API_KEY
