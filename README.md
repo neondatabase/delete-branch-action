@@ -85,7 +85,7 @@ Here's an example of a complete GitHub Actions workflow that deletes a Neon bran
 name: Neon Github Actions Delete Branch
 
 on:
-  # Modify the following line to trigger the workflow on a different event such as push or pull_request as per your requirement. We have used workflow_dispatch for manual triggering in this example.
+  # You can modify the following line to trigger the workflow on a different event, such as `push` or `pull_request`, as per your requirements. We have used `workflow_dispatch` for triggering the action in this example.
   workflow_dispatch:
 
 jobs:
