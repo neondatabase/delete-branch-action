@@ -30,7 +30,7 @@ The following fields are required to run the Delete Branch action:
 
 - `project_id` — The Neon project ID. If you have the Neon GitHub Integration installed, you can specify `${{ vars.NEON_PROJECT_ID }}`. You can find the project ID of your Neon project on the Settings page of your Neon console.
 - `api_key` — The Neon API key for your Neon project or organization. If you have the GitHub integration installed, specify `${{ secrets.NEON_API_KEY }}`.
-- `branch` or `branch_id` — Specifies the branch to delete. You can use either the `branch` name or the `branch_id`. Using `branch` (name or ID) is recommended, `branch_id` is deprecated but still supported for backward compatibility.
+- `branch` or `branch_id` — Specifies the branch to delete. You can use either the `branch` name or the `branch_id`. Using `branch` (name or ID) is recommended. `branch_id` is deprecated but still supported for backward compatibility.
 
 Setup the action in your workflow:
 
