@@ -25,7 +25,7 @@ runs:
   using: "composite"
   steps:
     - uses: actions/setup-node@v6
-    - run: npm i -g neonctl@v2
+    - run: npm i -g --ignore-scripts neonctl@2.22.0
       shell: bash
     - name: Delete branch
       shell: bash
