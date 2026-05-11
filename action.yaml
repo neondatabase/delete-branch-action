@@ -24,17 +24,20 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@v6
-    - run: npm i -g neonctl@v2
+    - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+    - run: npm i -g --ignore-scripts neonctl@2.22.0
       shell: bash
     - name: Delete branch
       shell: bash
       env:
         NEON_API_KEY: ${{ inputs.api_key }}
         NEON_API_HOST: ${{ inputs.api_host }}
+        INPUT_BRANCH: ${{ inputs.branch }}
+        INPUT_BRANCH_ID: ${{ inputs.branch_id }}
+        INPUT_PROJECT_ID: ${{ inputs.project_id }}
       run: |
-        if [ -z "${{ inputs.branch }}" ]; then
-          neonctl branches delete ${{ inputs.branch_id }} --project-id ${{ inputs.project_id }}
+        if [ -z "$INPUT_BRANCH" ]; then
+          neonctl branches delete "$INPUT_BRANCH_ID" --project-id "$INPUT_PROJECT_ID"
         else
-          neonctl branches delete "${{ inputs.branch }}" --project-id ${{ inputs.project_id }}
+          neonctl branches delete "$INPUT_BRANCH" --project-id "$INPUT_PROJECT_ID"
         fi
