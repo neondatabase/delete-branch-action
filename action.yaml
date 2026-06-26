@@ -36,7 +36,7 @@ runs:
         INPUT_BRANCH_ID: ${{ inputs.branch_id }}
         INPUT_PROJECT_ID: ${{ inputs.project_id }}
       run: |
-        if [ -z "$INPUT_BRANCH" ]; then
+        if [ -z "$INPUT_BRANCH_ID" ]; then
           neonctl branches delete "$INPUT_BRANCH_ID" --project-id "$INPUT_PROJECT_ID"
         else
           neonctl branches delete "$INPUT_BRANCH" --project-id "$INPUT_PROJECT_ID"
